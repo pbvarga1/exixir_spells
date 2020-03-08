@@ -1,0 +1,28 @@
+# Version of docker-compose
+version: '3'
+
+# Containers we are going to run
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_USER=perry
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=db
+    ports:
+      - 5433:5432
+  create_db:
+    environment:
+      - POSTGRES_PASSWORD=mypass
+      - POSTGRES_USER=perry
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=db
+    build:
+      context: spells_db
+    depends_on:
+      - db
+# Define the volumes
+# volumes:
+#   pgdata:

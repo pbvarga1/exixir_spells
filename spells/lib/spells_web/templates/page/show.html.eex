@@ -1,0 +1,12 @@
+<label>
+ID: <%= @spell["ID"] %>
+</label>
+<label>
+Name: <%= @spell["name"] %>
+</label>
+<label>
+Description: <%= @spell["description"] %>
+</label>
+<label>
+History: <%= @spell["history"] %>
+</label>

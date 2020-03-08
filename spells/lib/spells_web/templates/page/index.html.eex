@@ -1,0 +1,21 @@
+<section class="phx-hero">
+  <h1><%= gettext "You are a %{name} Harry!", name: "Wizard" %></h1>
+
+<%= link("Create Spell", to:  Routes.create_path(@conn, :index)) %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Spell</th>
+    <th>Description</th>
+  </tr>
+  <%= for spell <- get_spells() do %>
+    <tr>
+      <td><%= spell["ID"] %></td>
+      <td><%= link(spell["name"], to:  Routes.page_path(@conn, :show, spell["ID"])) %></td>
+      <td><%= spell["description"] %>
+    </tr>
+  <% end %>
+</table>
+
+</section>

@@ -1,0 +1,13 @@
+<h1>Create a Spell</h1>
+<%= form_for @conn, Routes.create_path(@conn, :create), fn f -> %>
+  <label>
+    Name: <%= text_input f, :name, required: true %>
+  </label>
+  <label>
+    Description: <%= text_input f, :description, required: true %>
+  </label>
+  <label>
+    History: <%= text_input f, :history %>
+  </label>
+  <%= submit "Create" %>
+<% end %>
