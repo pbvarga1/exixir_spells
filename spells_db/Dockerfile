@@ -1,10 +1,9 @@
 FROM python:3.7
 
-RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/src/app/app
-WORKDIR /usr/src/app/app
+RUN mkdir -p /app/spells_db
+WORKDIR /app/spells_db
 
-COPY . /usr/src/app/app
+COPY . /app/spells_db
 
 RUN pip install --no-cache-dir -e .
 

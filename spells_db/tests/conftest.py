@@ -1,12 +1,10 @@
 import os
 import time
-import warnings
 
 import pytest
 import docker
-from sqlalchemy.exc import SADeprecationWarning
 
-from spells_db.get_session import get_session
+from spells_db.session_context import session_context
 from spells_db.models import Base
 
 
@@ -58,18 +56,14 @@ def session(docker_container, monkeypatch):
     }
     for key, var in env.items():
         monkeypatch.setenv(key, var)
-    session = get_session()
-    engine = session.get_bind()
-    metadata = Base.metadata
-    metadata.bind = engine
-    metadata.drop_all()
-    metadata.create_all()
+    monkeypatch.delenv('SPELLS_ELIXIR', raising=False)
+    with session_context() as session:
+        engine = session.get_bind()
+        metadata = Base.metadata
+        metadata.bind = engine
+        metadata.drop_all()
+        metadata.create_all()
     try:
         yield session
     finally:
-        session.rollback()
-        session.commit()
-        with warnings.catch_warnings():
-            warnings.filterwarnings('ignore', category=SADeprecationWarning)
-            session.close_all()
         metadata.drop_all(bind=engine)

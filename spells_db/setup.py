@@ -14,6 +14,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'SQLAlchemy==1.3.13',
+        'psycopg2==2.8.4',
     ],
     license="GNU",
     zip_safe=False,

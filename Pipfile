@@ -12,6 +12,7 @@ flake8 = "==3.7.9"
 spells-db = {path = "./spells_db",editable = true}
 psycopg2 = "*"
 pytest-mock = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.7"

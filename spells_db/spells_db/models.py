@@ -3,7 +3,7 @@ from sqlalchemy.schema import CreateSchema
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
-from spells_db.get_session import get_session
+from spells_db.session_context import session_context
 
 
 class ModelMixin(object):
@@ -115,7 +115,7 @@ class SpellTypeMapping(Base):
 
 @event.listens_for(Base.metadata, 'before_create')
 def receive_before_create(target, connection, **kw):
-    session = get_session()
-    engine = session.bind
-    if not engine.dialect.has_schema(engine, 'spl'):
-        engine.execute(CreateSchema('spl'))
+    with session_context() as session:
+        engine = session.bind
+        if not engine.dialect.has_schema(engine, 'spl'):
+            engine.execute(CreateSchema('spl'))
